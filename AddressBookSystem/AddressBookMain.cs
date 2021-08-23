@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace AddressBookSystem
@@ -11,6 +12,7 @@ namespace AddressBookSystem
 
         public static void Choice()
         {
+            People = new List<AddressBook>();
             Select = "";
             Console.WriteLine("Enter 'add' if u want to Add a contact");
             Console.WriteLine("Enter 'edit' if u want to Edit a contact");
@@ -49,30 +51,40 @@ namespace AddressBookSystem
         }
         public static void AddPerson()
         {
-            String NameFirst = "";
-            People = new List<AddressBook>();
+            String NameFirst = "";           
             AddressBook person = new AddressBook();
+            Console.WriteLine("Welcome to Address Book System!");
             Console.WriteLine("Enter your FirstName :");
             NameFirst = Console.ReadLine();
-            person.FirstName = NameFirst;
-            Console.WriteLine("Enter your Lastname :");
-            person.LastName = Console.ReadLine();
-            Console.WriteLine("Enter your Address : ");
-            person.Address = Console.ReadLine();
-            Console.WriteLine("Enter your City :");
-            person.City = Console.ReadLine();
-            Console.WriteLine("Enter your State :");
-            person.State = Console.ReadLine();
-            Console.WriteLine("Enter your PhoneNumber :");
-            person.PhoneNumber = Console.ReadLine();
-            Console.WriteLine("Enter your Zip :");
-            person.Zip = Console.ReadLine();
-            Console.WriteLine("Enter your Email Id :");
-            person.Email = Console.ReadLine();
-            People.Add(person);
-            Console.WriteLine("DATA ADDED!");
-            Console.WriteLine("*************************************************************************");
-            Console.WriteLine("Enter your Choice!");
+            var result = People.Any(item => item.FirstName.Equals(NameFirst));
+            if (result == false)
+            {
+                person.FirstName = NameFirst;
+                Console.WriteLine("Enter your Lastname :");
+                person.LastName = Console.ReadLine();
+                Console.WriteLine("Enter your Address : ");
+                person.Address = Console.ReadLine();
+                Console.WriteLine("Enter your City :");
+                person.City = Console.ReadLine();
+                Console.WriteLine("Enter your State :");
+                person.State = Console.ReadLine();
+                Console.WriteLine("Enter your PhoneNumber :");
+                person.PhoneNumber = Console.ReadLine();
+                Console.WriteLine("Enter your Zip :");
+                person.Zip = Console.ReadLine();
+                Console.WriteLine("Enter your Email Id :");
+                person.Email = Console.ReadLine();
+                People.Add(person);
+                Console.WriteLine("DATA ADDED!");
+                Console.WriteLine("*************************************************************************");
+                Console.WriteLine("Enter your Choice!");
+            }
+            else
+            {
+                Console.WriteLine("Sorry the name already exist!");
+                Console.WriteLine("*************************************************************************");
+                Console.WriteLine("Enter your Choice!");
+            }
         }
         public static void Edit()
         {
@@ -143,8 +155,7 @@ namespace AddressBookSystem
             Console.WriteLine("Phone Number : " + person.PhoneNumber);
             Console.WriteLine("Zip : " + person.Zip);
             Console.WriteLine("Email : " + person.Email);
-            Console.WriteLine("----------------------------------------------------------------------");
-            Console.WriteLine("Enter your Choice!");
+            Console.WriteLine("----------------------------------------------------------------------");          
         }
     }
 }
