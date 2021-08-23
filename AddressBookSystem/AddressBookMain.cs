@@ -14,6 +14,8 @@ namespace AddressBookSystem
             Select = "";
             Console.WriteLine("Enter 'add' if u want to Add a contact");
             Console.WriteLine("Enter 'edit' if u want to Edit a contact");
+            Console.WriteLine("Enter 'delete' if u want to Delete a contact");
+            Console.WriteLine("Enter 'disp' if u want to Display");
             ChoiceSelector();
         }
         public static void ChoiceSelector()
@@ -30,6 +32,17 @@ namespace AddressBookSystem
 
                     case "edit":
                         Edit();
+                        break;
+
+                    case "delete":
+                        Delete();
+                        break;
+
+                    case "disp":
+                        foreach (var person in People)
+                        {
+                            Display(person);
+                        }
                         break;
                 }
             }
@@ -57,6 +70,9 @@ namespace AddressBookSystem
             Console.WriteLine("Enter your Email Id :");
             person.Email = Console.ReadLine();
             People.Add(person);
+            Console.WriteLine("DATA ADDED!");
+            Console.WriteLine("*************************************************************************");
+            Console.WriteLine("Enter your Choice!");
         }
         public static void Edit()
         {
@@ -98,6 +114,36 @@ namespace AddressBookSystem
             }
             Console.WriteLine("DATA EDITED!!");
             Console.WriteLine("********************************************************");
+            Console.WriteLine("Enter your Choice!");
+        }
+        public static void Delete()
+        {
+            AddressBook person = new AddressBook();
+            Console.WriteLine("Enter the first name of the person to be deleted :");
+            String NameFirst = Console.ReadLine().ToLower();
+            foreach (var data in People.ToArray())                              
+            {
+
+                if (data.FirstName.ToLower() == NameFirst)
+                {
+                    People.Remove(data);
+                }
+            }
+            Console.WriteLine("DATA DELETED!!");
+            Console.WriteLine("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            Console.WriteLine("Enter your Choice!");
+        }
+        public static void Display(AddressBook person)
+        {
+            Console.WriteLine("First Name : " + person.FirstName);
+            Console.WriteLine("Last Name : " + person.LastName);
+            Console.WriteLine("Address : " + person.Address);
+            Console.WriteLine("City : " + person.City);
+            Console.WriteLine("State : " + person.State);
+            Console.WriteLine("Phone Number : " + person.PhoneNumber);
+            Console.WriteLine("Zip : " + person.Zip);
+            Console.WriteLine("Email : " + person.Email);
+            Console.WriteLine("----------------------------------------------------------------------");
             Console.WriteLine("Enter your Choice!");
         }
     }
