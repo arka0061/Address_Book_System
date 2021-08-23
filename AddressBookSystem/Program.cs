@@ -6,8 +6,8 @@ namespace AddressBookSystem
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome To Address Book System!");         
-            AddressBookMain.Choice();
+            Console.WriteLine("Welcome To Address Book System!");
+            AddressBookRegulator.Regulator();
         }
     }
 }
