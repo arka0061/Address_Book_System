@@ -33,6 +33,7 @@ namespace AddressBookSystem
             Console.WriteLine("Enter 'search' to search person by city or state");
             Console.WriteLine("Enter 'show' to display persons in cities and state");
             Console.WriteLine("Enter 'count' to display number of persons living in cities and state");
+            Console.WriteLine("Enter 'sort' to display contacts sorted by city state or zip");
             Console.WriteLine("Enter 'stop' to stop");
             while (Select != "stop")
             {
@@ -53,6 +54,10 @@ namespace AddressBookSystem
 
                     case "count":
                         CountPerson();
+                        break;
+
+                    case "sort":
+                        SortByCityStateOrZip();
                         break;
                 }
             }
@@ -168,8 +173,8 @@ namespace AddressBookSystem
                     {
                         countPersonByCity++;
                     }
-                }                
-                Console.WriteLine("Persons Living in City " + kvp.Key + " " + countPersonByCity);             
+                }
+                Console.WriteLine("Persons Living in City " + kvp.Key + " " + countPersonByCity);
                 countPersonByCity = 0;
             }
             foreach (KeyValuePair<string, List<AddressBook>> kvp in AddressBookRegulator.States)
@@ -180,9 +185,64 @@ namespace AddressBookSystem
                     {
                         countPersonByState++;
                     }
-                }               
-                Console.WriteLine("Persons Living in State " + kvp.Key + " " + countPersonByState);               
+                }
+                Console.WriteLine("Persons Living in State " + kvp.Key + " " + countPersonByState);
                 countPersonByState = 0;
+            }
+        }
+        public static void SortByCityStateOrZip()
+        {
+            Console.WriteLine("Enter '1' :To Display dictionaries sorted by cities");
+            Console.WriteLine("Enter '2' :To Display dictionaries sorted by States");
+            Console.WriteLine("Enter '3' :To Display dictionaries sorted by ZipCode");
+            int choice = Convert.ToInt32(Console.ReadLine());
+            switch (choice)
+            {
+
+                case 1:
+                    Console.WriteLine("Contacts sorted By Cities!");
+                    foreach (KeyValuePair<string, List<AddressBook>> kvp in AddressBookRegulator.Dict)
+                    {
+                        Console.WriteLine("Dictionary Name is :" + kvp.Key);
+                        foreach (var person in kvp.Value.OrderBy(x => x.City))
+                        {
+                            Console.WriteLine("Value of Dictionary " + kvp.Key + " is :");
+                            AddressBookMain.Display(person);
+                        }
+
+                    }
+                    break;
+
+                case 2:
+                    Console.WriteLine("Contacts sorted By States!");
+                    foreach (KeyValuePair<string, List<AddressBook>> kvp in AddressBookRegulator.Dict)
+                    {
+                        Console.WriteLine("Dictionary Name is :" + kvp.Key);
+                        foreach (var person in kvp.Value.OrderBy(x => x.State))
+                        {
+                            Console.WriteLine("Value of Dictionary " + kvp.Key + " is :");
+                            AddressBookMain.Display(person);
+                        }
+
+                    }
+                    break;
+
+                case 3:
+                    Console.WriteLine("Contacts sorted By Zip!");
+                    foreach (KeyValuePair<string, List<AddressBook>> kvp in AddressBookRegulator.Dict)
+                    {
+                        Console.WriteLine("Dictionary Name is :" + kvp.Key);
+                        foreach (var person in kvp.Value.OrderBy(x => x.Zip))
+                        {
+                            Console.WriteLine("Value of Dictionary " + kvp.Key + " is :");
+                            AddressBookMain.Display(person);
+                        }
+                    }
+                    break;
+
+                default:
+                    Console.WriteLine("Wrong input!");
+                    break;
             }
         }
     }
