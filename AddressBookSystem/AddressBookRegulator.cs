@@ -62,7 +62,7 @@ namespace AddressBookSystem
             foreach (KeyValuePair<string, List<AddressBook>> kvp in AddressBookRegulator.Dict)
             {
                 Console.WriteLine("Dictionary Name is :" + kvp.Key);
-                foreach (var person in kvp.Value)
+                foreach (var person in kvp.Value.OrderBy(x => x.FirstName))
                 {
                     Console.WriteLine("Value of Dictionary " + kvp.Key + " is :");
                     AddressBookMain.Display(person);
