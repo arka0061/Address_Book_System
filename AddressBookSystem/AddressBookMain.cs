@@ -7,13 +7,18 @@ namespace AddressBookSystem
 {
     public class AddressBookMain
     {
+        public static int count = 0;
+        public static string previousCity = "";
         public static String Select = "";
         public static List<AddressBook> People;
+        public static List<AddressBook> cityList;
+        public static List<AddressBook> stateList;
 
         public static void Choice()
         {
             People = new List<AddressBook>();
             Select = "";
+            count = 0;
             Console.WriteLine("Enter 'add' if u want to Add a contact");
             Console.WriteLine("Enter 'edit' if u want to Edit a contact");
             Console.WriteLine("Enter 'delete' if u want to Delete a contact");
@@ -28,7 +33,7 @@ namespace AddressBookSystem
                 Select = Console.ReadLine().ToLower();
                 switch (Select)
                 {
-                    case "add":
+                    case "add":                    
                         AddPerson();
                         break;
 
@@ -51,7 +56,7 @@ namespace AddressBookSystem
         }
         public static void AddPerson()
         {
-            String NameFirst = "";           
+            String NameFirst = "";
             AddressBook person = new AddressBook();
             Console.WriteLine("Welcome to Address Book System!");
             Console.WriteLine("Enter your FirstName :");
@@ -84,6 +89,30 @@ namespace AddressBookSystem
                 Console.WriteLine("Sorry the name already exist!");
                 Console.WriteLine("*************************************************************************");
                 Console.WriteLine("Enter your Choice!");
+            }
+            if (!AddressBookRegulator.Cities.ContainsKey(person.City))
+            {
+
+                cityList = new List<AddressBook>();
+                cityList.Add(person);
+                AddressBookRegulator.Cities.Add(person.City, cityList);
+            }
+            else
+            {
+                List<AddressBook> cities = AddressBookRegulator.Cities[person.City];
+                cities.Add(person);
+            }
+            if (!AddressBookRegulator.States.ContainsKey(person.State))
+            {
+
+                stateList = new List<AddressBook>();
+                stateList.Add(person);
+                AddressBookRegulator.States.Add(person.State, stateList);
+            }
+            else
+            {
+                List<AddressBook> states = AddressBookRegulator.States[person.State];
+                states.Add(person);
             }
         }
         public static void Edit()
@@ -133,7 +162,7 @@ namespace AddressBookSystem
             AddressBook person = new AddressBook();
             Console.WriteLine("Enter the first name of the person to be deleted :");
             String NameFirst = Console.ReadLine().ToLower();
-            foreach (var data in People.ToArray())                              
+            foreach (var data in People.ToArray())
             {
 
                 if (data.FirstName.ToLower() == NameFirst)
@@ -155,7 +184,7 @@ namespace AddressBookSystem
             Console.WriteLine("Phone Number : " + person.PhoneNumber);
             Console.WriteLine("Zip : " + person.Zip);
             Console.WriteLine("Email : " + person.Email);
-            Console.WriteLine("----------------------------------------------------------------------");          
+            Console.WriteLine("----------------------------------------------------------------------");
         }
     }
 }

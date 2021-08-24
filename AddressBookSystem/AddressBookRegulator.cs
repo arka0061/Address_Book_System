@@ -7,7 +7,10 @@ namespace AddressBookSystem
 {
     public class AddressBookRegulator
     {
+        public static string previousName;
         public static Dictionary<string, List<AddressBook>> Dict = new Dictionary<string, List<AddressBook>>();
+        public static Dictionary<string, List<AddressBook>> States = new Dictionary<string, List<AddressBook>>();
+        public static Dictionary<string, List<AddressBook>> Cities = new Dictionary<string, List<AddressBook>>();
         public static void Regulator()
         {
             Console.WriteLine("Enter no. of AddressBooks");
@@ -27,6 +30,7 @@ namespace AddressBookSystem
             string Select = "";
             Console.WriteLine("Enter 'dict' to Display Dictionaries");
             Console.WriteLine("Enter 'search' to search person by city or state");
+            Console.WriteLine("Enter 'show' to display person in cities and state");
             Console.WriteLine("Enter 'stop' to stop");
             while (Select != "stop")
             {
@@ -39,6 +43,10 @@ namespace AddressBookSystem
 
                     case "search":
                         SearchPersonByCityOrState();
+                        break;
+
+                    case "show":
+                        ShowPersonsByCityOrState();
                         break;
                 }
             }
@@ -81,8 +89,8 @@ namespace AddressBookSystem
                         }
                         else
                         {
-                            if(count==0)
-                            Console.WriteLine("City not Found!");
+                            if (count == 0)
+                                Console.WriteLine("City not Found!");
                         }
                     }
                     break;
@@ -106,8 +114,8 @@ namespace AddressBookSystem
                         }
                         else
                         {
-                            if(count1==0)
-                            Console.WriteLine("State not Found!");
+                            if (count1 == 0)
+                                Console.WriteLine("State not Found!");
                         }
                     }
                     break;
@@ -117,8 +125,40 @@ namespace AddressBookSystem
                     break;
             }
         }
+        public static void ShowPersonsByCityOrState()
+        {
+            foreach (KeyValuePair<string, List<AddressBook>> kvp in AddressBookRegulator.Cities)
+            {
+                Console.WriteLine("Cities are :"+kvp.Key);
+                Console.WriteLine("Deatils of the Persons Staying in the Same City :");
+                foreach (var item in kvp.Value)
+                {
+                    if (item.City.Equals(kvp.Key))
+                    {                       
+                        AddressBookMain.Display(item);
+                    }
+                }
+            }
+            foreach (KeyValuePair<string, List<AddressBook>> kvp in AddressBookRegulator.States)
+            {
+                Console.WriteLine("States are :" + kvp.Key);
+                Console.WriteLine("Deatils of the Persons Staying in the Same State :");
+                foreach (var item in kvp.Value)
+                {
+                    if (item.City.Equals(kvp.Key))
+                    {
+                        AddressBookMain.Display(item);
+                    }
+                }
+            }
+        }
+
     }
 }
+
+
+
+
 
 
 
