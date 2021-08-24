@@ -34,6 +34,7 @@ namespace AddressBookSystem
             Console.WriteLine("Enter 'show' to display persons in cities and state");
             Console.WriteLine("Enter 'count' to display number of persons living in cities and state");
             Console.WriteLine("Enter 'sort' to display contacts sorted by city state or zip");
+            Console.WriteLine("Enter 'write' to write data on file ");
             Console.WriteLine("Enter 'stop' to stop");
             while (Select != "stop")
             {
@@ -59,6 +60,11 @@ namespace AddressBookSystem
                     case "sort":
                         SortByCityStateOrZip();
                         break;
+
+                    case "write":
+                        FileOperation.WriteToFile();
+                        break;
+                   
                 }
             }
         }

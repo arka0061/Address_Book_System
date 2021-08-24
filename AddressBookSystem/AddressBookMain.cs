@@ -21,6 +21,7 @@ namespace AddressBookSystem
             Console.WriteLine("Enter 'edit' if u want to Edit a contact");
             Console.WriteLine("Enter 'delete' if u want to Delete a contact");
             Console.WriteLine("Enter 'disp' if u want to Display");
+            Console.WriteLine("Enter 'read' to read data from file!");
             ChoiceSelector();
         }
         public static void ChoiceSelector()
@@ -48,6 +49,10 @@ namespace AddressBookSystem
                         {
                             Display(person);
                         }
+                        break;
+
+                    case "read":
+                        FileOperation.ReadFromFile();
                         break;
                 }
             }
