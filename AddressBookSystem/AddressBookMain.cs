@@ -7,7 +7,6 @@ namespace AddressBookSystem
 {
     public class AddressBookMain
     {
-        public static int count = 0;
         public static string previousCity = "";
         public static String Select = "";
         public static List<AddressBook> People;
@@ -17,8 +16,7 @@ namespace AddressBookSystem
         public static void Choice()
         {
             People = new List<AddressBook>();
-            Select = "";
-            count = 0;
+            Select = "";       
             Console.WriteLine("Enter 'add' if u want to Add a contact");
             Console.WriteLine("Enter 'edit' if u want to Edit a contact");
             Console.WriteLine("Enter 'delete' if u want to Delete a contact");

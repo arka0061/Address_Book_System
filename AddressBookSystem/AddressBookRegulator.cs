@@ -7,7 +7,8 @@ namespace AddressBookSystem
 {
     public class AddressBookRegulator
     {
-        public static string previousName;
+        public static int countPersonByState = 0;
+        public static int countPersonByCity = 0;
         public static Dictionary<string, List<AddressBook>> Dict = new Dictionary<string, List<AddressBook>>();
         public static Dictionary<string, List<AddressBook>> States = new Dictionary<string, List<AddressBook>>();
         public static Dictionary<string, List<AddressBook>> Cities = new Dictionary<string, List<AddressBook>>();
@@ -30,7 +31,8 @@ namespace AddressBookSystem
             string Select = "";
             Console.WriteLine("Enter 'dict' to Display Dictionaries");
             Console.WriteLine("Enter 'search' to search person by city or state");
-            Console.WriteLine("Enter 'show' to display person in cities and state");
+            Console.WriteLine("Enter 'show' to display persons in cities and state");
+            Console.WriteLine("Enter 'count' to display number of persons living in cities and state");
             Console.WriteLine("Enter 'stop' to stop");
             while (Select != "stop")
             {
@@ -47,6 +49,10 @@ namespace AddressBookSystem
 
                     case "show":
                         ShowPersonsByCityOrState();
+                        break;
+
+                    case "count":
+                        CountPerson();
                         break;
                 }
             }
@@ -129,20 +135,8 @@ namespace AddressBookSystem
         {
             foreach (KeyValuePair<string, List<AddressBook>> kvp in AddressBookRegulator.Cities)
             {
-                Console.WriteLine("Cities are :"+kvp.Key);
+                Console.WriteLine("City is :" + kvp.Key);
                 Console.WriteLine("Deatils of the Persons Staying in the Same City :");
-                foreach (var item in kvp.Value)
-                {
-                    if (item.City.Equals(kvp.Key))
-                    {                       
-                        AddressBookMain.Display(item);
-                    }
-                }
-            }
-            foreach (KeyValuePair<string, List<AddressBook>> kvp in AddressBookRegulator.States)
-            {
-                Console.WriteLine("States are :" + kvp.Key);
-                Console.WriteLine("Deatils of the Persons Staying in the Same State :");
                 foreach (var item in kvp.Value)
                 {
                     if (item.City.Equals(kvp.Key))
@@ -151,8 +145,46 @@ namespace AddressBookSystem
                     }
                 }
             }
+            foreach (KeyValuePair<string, List<AddressBook>> kvp in AddressBookRegulator.States)
+            {
+                Console.WriteLine("State is :" + kvp.Key);
+                Console.WriteLine("Deatils of the Persons Staying in the Same State :");
+                foreach (var item in kvp.Value)
+                {
+                    if (item.State.Equals(kvp.Key))
+                    {
+                        AddressBookMain.Display(item);
+                    }
+                }
+            }
         }
-
+        public static void CountPerson()
+        {
+            foreach (KeyValuePair<string, List<AddressBook>> kvp in AddressBookRegulator.Cities)
+            {
+                foreach (var item in kvp.Value)
+                {
+                    if (item.City.Equals(kvp.Key))
+                    {
+                        countPersonByCity++;
+                    }
+                }                
+                Console.WriteLine("Persons Living in City " + kvp.Key + " " + countPersonByCity);             
+                countPersonByCity = 0;
+            }
+            foreach (KeyValuePair<string, List<AddressBook>> kvp in AddressBookRegulator.States)
+            {
+                foreach (var item in kvp.Value)
+                {
+                    if (item.State.Equals(kvp.Key))
+                    {
+                        countPersonByState++;
+                    }
+                }               
+                Console.WriteLine("Persons Living in State " + kvp.Key + " " + countPersonByState);               
+                countPersonByState = 0;
+            }
+        }
     }
 }
 
