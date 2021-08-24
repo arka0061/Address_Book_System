@@ -72,9 +72,9 @@ namespace AddressBookSystem
                 Console.WriteLine("Enter your State :");
                 person.State = Console.ReadLine();
                 Console.WriteLine("Enter your PhoneNumber :");
-                person.PhoneNumber = Console.ReadLine();
+                person.PhoneNumber = Convert.ToInt64(Console.ReadLine());
                 Console.WriteLine("Enter your Zip :");
-                person.Zip = Console.ReadLine();
+                person.Zip = Convert.ToInt64(Console.ReadLine());
                 Console.WriteLine("Enter your Email Id :");
                 person.Email = Console.ReadLine();
                 People.Add(person);
@@ -137,9 +137,9 @@ namespace AddressBookSystem
                     if (CheckEdit == "state")
                         data.State = Console.ReadLine();
                     if (CheckEdit == "phonenumber")
-                        data.PhoneNumber = Console.ReadLine();
+                        data.PhoneNumber = Convert.ToInt64(Console.ReadLine());
                     if (CheckEdit == "zip")
-                        data.Zip = Console.ReadLine();
+                        data.Zip = Convert.ToInt64(Console.ReadLine());
                     if (CheckEdit == "emailid")
                     {
                         data.Email = Console.ReadLine();
